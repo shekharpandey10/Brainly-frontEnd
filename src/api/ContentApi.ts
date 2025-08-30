@@ -12,7 +12,7 @@ export const getAllDoc=async()=>{
               method:"GET",
               headers:{
                        "Content-Type": "application/json",
-                     "Authorization":`Bearer ${token}a`,
+                     "Authorization":`Bearer ${token}`,
               }
        })
        if(!data.ok){
