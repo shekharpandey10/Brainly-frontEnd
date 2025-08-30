@@ -52,15 +52,19 @@ export const loginApi = async (username: string, password: string) => {
       const err = {
         status: res.status,
         msg: await res.json().then((res) => res.msg),
+       
       }
       console.log(err)
       return err
     }
     console.log(res)
+    const r=await res.json()
+    console.log(r)
     const data = {
       status: res.status,
-      msg: await res.json().then((res) => res.msg),
+     r
     }
+    localStorage.setItem('jwtSecret',r.jwt_secret)
     console.log(data)
     return data
   } catch (e: any) {
