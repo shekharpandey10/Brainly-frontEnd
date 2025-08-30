@@ -18,7 +18,11 @@ function SignUp() {
     }
     setError('')
     setLoading(true)
-    setTimeout(() => console.log('loading...'), 2000)
+    await new Promise((resolve)=>{
+      setTimeout(() => {console.log('loading...')
+        resolve()
+      }, 2000)
+    })
     const res = await signUpApi(Username, Password)
     console.log('hello', res)
     setData(res)
