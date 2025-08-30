@@ -28,9 +28,10 @@ resolve()
     console.log(res,'is res')
     setLoading(false)
     if(res.status!==200){
-      setError(res.msg)
+      setError(res?.msg)
     }else{
-       setData(res)
+      setData(res)
+      navigate('/home')
     }
   
   }
