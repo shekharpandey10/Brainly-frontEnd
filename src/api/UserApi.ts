@@ -2,7 +2,7 @@
 const BASE_URL="http://localhost:4000/app/v1"
 
 export const signUpApi=async(username:string,password:string)=>{
-    console.log('hello sit')
+    console.log('sign up......')
      try{
         const res= await fetch(`${BASE_URL}/user/signup`,{
             method:'POST',
@@ -13,12 +13,28 @@ export const signUpApi=async(username:string,password:string)=>{
         })
 
         if(!res.ok){
-            throw new Error('Something went wrong')
+            console.log(res,'hooooooo...')
+            const err={
+               status: res.status,
+                msg: await res.json().then((res)=>res.msg)
+            }
+            return err
         }
-        console.log("okey got it",res)
-        return await res.json()
+        const data= await res.json().then((res)=>res.msg)
+        const result={
+            msg:data,
+            status:res.status
+        }
+        console.log(data)
+        return result
      }catch(e){
-         throw new Error('Something went wrong')
+         console.log(e,'hooooooo...')
+            const err={
+               status: 500,
+                msg: "Internal Server Error"
+            }
+            return err
+        //  throw new Error('Something went wrong')
      }
 }
 
@@ -33,10 +49,16 @@ export const loginApi=async(username:string,password:string)=>{
         body:JSON.stringify({username,password})
     })
     if(!res.ok){
-        throw new Error('Something Went wrong')
+        console.log(res,'hooooooo...')
+            const err={
+               status: res.status,
+                msg: await res.json().then((res)=>res.msg)
+            }
+            return err
     }
     console.log(res)
-    return await res.json()
+    const data= await res.json()
+    return data
  }catch(e:any){
     throw new Error('Something Went wrong',e)
  }
