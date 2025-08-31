@@ -3,10 +3,23 @@ import {getAllDoc} from '../../api/ContentApi'
 import Button from './Button'
 import Share from '../../icons/Share'
 import Plus from '../../icons/Plus'
+import Card from './Card'
+import Header from './Header'
+import NewDocs from './NewDocs'
+import ShareLink from './ShareLink'
 function Home() {
   const [list,setList]=useState<any>(null)
   const [loading,setLoading]=useState<boolean>(true)
   const [error,setError]=useState<string>('')
+  const [open,setOpen]=useState(false)
+    const [share,setShare]=useState(false)
+    const handleShare=()=>{
+        setShare(p=>!p)
+    }
+
+    const handleAdd=()=>{
+        setOpen(p=>!p)
+    }
 console.log(list)
   useEffect(()=>{
     const callApi=async()=>{
@@ -30,18 +43,13 @@ if(error){
   return <div>Error....</div>
 }
   return (
-    <div className='w-full bg-white '>
-    {/* {list.length>0 && list.map((d:any,i:any)=>{
-     { console.log(d,'the boss')}
-      return <div>
-        <span>{d?.title}</span>
-        <span>{d?.type}</span>
-        <span>{d?.link}</span>
-        <span>{d?.tags?.map((t:any,j:any)=><div>{t}</div>)}</span>
-      </div>
-    })} */}
-   <Button name="Share" color="primary" icon={<Share/>} />
-   <Button name="Add Content" color="secondary" icon={<Plus/>} />
+    <div className='w-full bg-[#f9fbfc] '>
+   {/* <Card list={list}/> */}
+   <Header handleAdd={handleAdd} handleShare={handleShare}/>
+
+   {/* <Card list={list}/> */}
+  {open && <NewDocs handleAdd={handleAdd}/>}
+  {share && <ShareLink handleShare={handleShare}/>}
     </div>
   )
 }
