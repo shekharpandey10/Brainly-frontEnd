@@ -7,6 +7,7 @@ import Card from './Card'
 import Header from './Header'
 import NewDocs from './NewDocs'
 import ShareLink from './ShareLink'
+import Sidebar from '../Sidebar/Sidebar'
 function Home() {
   const [list,setList]=useState<any>(null)
   const [loading,setLoading]=useState<boolean>(true)
@@ -14,10 +15,12 @@ function Home() {
   const [open,setOpen]=useState(false)
     const [share,setShare]=useState(false)
     const handleShare=()=>{
+      setOpen(false)
         setShare(p=>!p)
     }
 
     const handleAdd=()=>{
+        setShare(false)
         setOpen(p=>!p)
     }
 console.log(list)
@@ -43,13 +46,17 @@ if(error){
   return <div>Error....</div>
 }
   return (
-    <div className='w-full bg-[#f9fbfc] '>
+    <div className='w-full  min-h-screen bg-[#f9fbfc] flex '>
    {/* <Card list={list}/> */}
-   <Header handleAdd={handleAdd} handleShare={handleShare}/>
+     <Sidebar/>
+  <div className=' w-full min-h-screen'>
+     <Header handleAdd={handleAdd}  handleShare={handleShare}/>
 
    {/* <Card list={list}/> */}
   {open && <NewDocs handleAdd={handleAdd}/>}
-  {share && <ShareLink handleShare={handleShare}/>}
+  {share &&  <ShareLink handleShare={handleShare}/>}
+  </div>
+ 
     </div>
   )
 }

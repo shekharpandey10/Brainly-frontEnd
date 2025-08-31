@@ -5,9 +5,9 @@ interface PropType{
 }
 function NewDocs({handleAdd}:PropType) {
   return (
-    <div className='flex justify-center items-center w-full h-screen bg-[#c7e0eb27] ' >
+    <div className='flex justify-center items-center  pt-10 bg-[#c7e0eb27] ' >
     <div className='shadow-2xl shadow-black rounded-2xl '>
-            <div className='flex justify-end p-2' >
+            <div className='flex justify-end p-2' > 
            <span onClick={handleAdd} className='cursor-pointer'> <Cross/></span>
         </div>
     <div className='bg-white-500 h-[400px] w-[500px] p-10  flex justify-center flex-col gap-4 '>

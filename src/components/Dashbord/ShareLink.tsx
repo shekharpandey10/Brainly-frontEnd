@@ -5,7 +5,7 @@ interface PropType{
 }
 function ShareLink({handleShare}:PropType) {
   return (
-    <div className='flex justify-center items-center w-full h-screen bg-[#c7e0eb27] '>
+    <div className='flex justify-center items-center w-[100%] h-[100%] bg-[#c7e0eb27] '>
      <div className='shadow-2xl shadow-black rounded-2xl bg-white'>
        <div className='flex justify-end' >
         <span className='cursor-pointer' onClick={handleShare}><Cross /></span>

@@ -9,7 +9,7 @@ interface PropType{
 }
 function Header({handleAdd,handleShare}:PropType) {
   return (
-    <div className='w-full h-10 flex justify-between p-5'>
+    <div className='w-[100%] h-[100px] flex justify-between px-10 items-center shadow-md shadow-gray-300 '>
       <h1 className='text-5xl font-bold'>All Notes</h1>
       <div className='flex gap-4'>
         <Button name='Share' color='primary' icon={<Share />} onClick={handleShare}  />
