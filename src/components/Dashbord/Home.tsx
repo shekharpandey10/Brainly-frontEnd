@@ -8,12 +8,15 @@ import Header from './Header'
 import NewDocs from './NewDocs'
 import ShareLink from './ShareLink'
 import Sidebar from '../Sidebar/Sidebar'
+import { useNavigate } from 'react-router-dom'
+import AllCards from './AllCards'
 function Home() {
   const [list,setList]=useState<any>(null)
   const [loading,setLoading]=useState<boolean>(true)
   const [error,setError]=useState<string>('')
   const [open,setOpen]=useState(false)
     const [share,setShare]=useState(false)
+   const navigate= useNavigate()
     const handleShare=()=>{
       setOpen(false)
         setShare(p=>!p)
@@ -30,8 +33,10 @@ console.log(list)
     console.log(result.res.data.map((d:any,i:number)=>console.log(d.link)),'shekhar')
     if(result.status===200)
     setList(result.res.data)
-  else
+  else{
     setError(result.error || 'Internal server Error')
+    navigate('/login')
+  }
   setLoading(false)   
   console.log(error)               
 }
@@ -46,13 +51,13 @@ if(error){
   return <div>Error....</div>
 }
   return (
-    <div className='w-full  min-h-screen bg-[#f9fbfc] flex '>
-   {/* <Card list={list}/> */}
+  <div className={`w-full min-h-screen  flex ${open || share?'bg-[#2f4c5827]':'bg-[#f9fbfc]'} `}>
+
      <Sidebar/>
   <div className=' w-full min-h-screen'>
      <Header handleAdd={handleAdd}  handleShare={handleShare}/>
 
-   {/* <Card list={list}/> */}
+   <AllCards list={list}/>
   {open && <NewDocs handleAdd={handleAdd}/>}
   {share &&  <ShareLink handleShare={handleShare}/>}
   </div>
