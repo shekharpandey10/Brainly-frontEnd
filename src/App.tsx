@@ -1,12 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Login from './components/Login'
-import {BrowserRouter,Route,Routes} from 'react-router-dom'
+import {BrowserRouter,Navigate,Route,Routes} from 'react-router-dom'
 import SignUp from './components/SignUp'
 import Home from './components/Dashbord/Home'
 import Button from './components/Dashbord/Button'
 function App() { 
-  const [user,setUser]=useState(localStorage.getItem('jwtSecret'))
+  console.log('hello app')
+  const [user,setUser]=useState(
+    !!localStorage.getItem('jwtSecret')
+  )
+ 
+
+  useEffect(()=>{
+    setUser(
+      !!localStorage.getItem('jwtSecret')
+    )
+  })
+  // const user=localStorage.getItem('jwtSecret')
+
+
     
   return (
     <BrowserRouter>
@@ -16,11 +29,14 @@ function App() {
           (<>
            <Route path='/' element={<Home/>}/>
           <Route path='/home' element={<Home/>}/>
+          <Route path='/*' element={<Home/>}/>
+          
           </>):
 (          <>
-          <Route path='/' element={<Login/>}/>
+         
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+           <Route path='*' element={<Login/>}/>
           </>)
          }
           
@@ -29,5 +45,7 @@ function App() {
     </BrowserRouter>
   )
 }
+
+
 
 export default App
