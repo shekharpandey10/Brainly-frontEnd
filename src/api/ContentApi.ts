@@ -1,5 +1,5 @@
 
-const BASE_URL = 'http://localhost:4000/app/v1'
+const BASE_URL = 'https://brainly-backend-rw1p.onrender.com/api/v1' 
 
 const token = localStorage.getItem('jwtSecret')
 export const getAllDoc = async () => {
