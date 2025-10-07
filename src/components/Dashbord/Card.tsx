@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { TwitterTweetEmbed } from "react-twitter-embed";
+import  { useState } from "react";
+import { Tweet } from "react-tweet";
 import Pencil from "../../icons/Pencil";
 import Delete from "../../icons/Delete";
 import LinkIcon from "../../icons/LinkIcon";
@@ -75,6 +75,7 @@ function Card({ data }: any) {
   if(isShareDocs){
     return <ShareLink handleShare={handleSharebox} />
   }
+  const tweetId = getTweetId(data.link);
   return (
     <div className="min-w-[200px] shadow-xl h-64 shadow-black p-6  border-black bg-gray-200 shadow-md rounded-md overflow-y-scroll  ">
       <div className="flex justify-end ">
@@ -101,9 +102,9 @@ function Card({ data }: any) {
           ></iframe>
         )}
 
-        {linkType === "twitter" && getTweetId(data.link) && (
-          <TwitterTweetEmbed tweetId={getTweetId(data.link)!} />
-        )}
+       {linkType === "twitter" && tweetId && (
+  <Tweet id={tweetId} />
+)}
 
         {linkType === "document" && (
           <iframe

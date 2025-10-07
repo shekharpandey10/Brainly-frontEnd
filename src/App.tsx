@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import './App.css'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import Login from './components/Login'
-import {BrowserRouter,Navigate,Route,Routes} from 'react-router-dom'
+import {BrowserRouter,Route,Routes} from 'react-router-dom'
 import SignUp from './components/SignUp'
 import Home from './components/Dashbord/Home'
-import Button from './components/Dashbord/Button'
+// import Button from './components/Dashbord/Button'
 function App() { 
   console.log('hello app')
   const [user,setUser]=useState(

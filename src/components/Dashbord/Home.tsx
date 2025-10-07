@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { getAllDoc } from '../../api/ContentApi'
-import Button from './Button'
-import Share from '../../icons/Share'
-import Plus from '../../icons/Plus'
-import Card from './Card'
+// import Button from './Button'
+// import Share from '../../icons/Share'
+// import Plus from '../../icons/Plus'
+// import Card from './Card'
 import Header from './Header'
 import NewDocs from './NewDocs'
 import ShareLink from './ShareLink'
@@ -30,12 +30,10 @@ function Home({ handleLogOut }: any) {
   }
 
   const callApi = async () => {
-    const result = await getAllDoc()
+    const result:any = await getAllDoc()
     console.log(result, 'result is')
-    console.log(
-      result?.res?.data?.map((d: any, i: number) => console.log(d.link)),
-      'shekhar'
-    )
+   
+    
     if (result.status === 200) {
       setList(result.res.data)
       navigate('/home')

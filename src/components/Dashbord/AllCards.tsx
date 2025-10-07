@@ -1,4 +1,3 @@
-import React from 'react'
 import Card from './Card'
 
 function AllCards({list}:any) {
@@ -6,7 +5,7 @@ function AllCards({list}:any) {
     if(list.length<1) return <div className='flex justify-center items-center text-gray-400 h-[500px] select-none'>Docs continer is empty</div>
   return (
     <div className='grid grid-cols-2 gap-4 items-stretch p-6'>
-      {list && list.map((d:any,i:any)=><Card data={d}/>)}
+      {list && list.map((d:any)=><Card data={d}/>)}
     </div>
   )
 }

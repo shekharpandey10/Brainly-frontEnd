@@ -1,4 +1,3 @@
-import { redirect, useNavigate } from 'react-router-dom'
 
 const BASE_URL = 'http://localhost:4000/app/v1'
 

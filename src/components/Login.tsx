@@ -22,7 +22,7 @@ function Login({handleLogIn}:any) {
     await new Promise((resolve) => {
       setTimeout(() => {
         console.log('loading...')
-        resolve()
+        resolve(undefined)
       }, 2000)
     })
     const res = await loginApi(Username, Password)
@@ -33,7 +33,9 @@ function Login({handleLogIn}:any) {
     if (!token) navigate('/login')
     if (res.status !== 200) {
       toast.error("Login failed, Invalid Creadiantial")
-      setError(res?.msg)
+     if (res && 'msg' in res) {
+  setError(res.msg);
+}
     } else {
       setData(res)
       console.log('navigate to the home...')
