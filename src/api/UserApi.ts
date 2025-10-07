@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:4000/app/v1'
+const BASE_URL = 'https://brainly-backend-rw1p.onrender.com/' 
 
 export const signUpApi = async (username: string, password: string) => {
   console.log('sign up......')
