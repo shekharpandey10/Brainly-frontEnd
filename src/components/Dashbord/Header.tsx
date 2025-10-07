@@ -3,6 +3,7 @@ import Button from './Button'
 import Share from '../../icons/Share'
 import Plus from '../../icons/Plus'
 import LogOut from '../../icons/LogOut'
+import { toast } from 'react-toastify'
 
 interface PropType{
     handleAdd:()=>void,
@@ -16,7 +17,9 @@ function Header({handleAdd,handleShare,handleLogOut}:PropType) {
       <div className='flex gap-4'>
         <Button name='Share' color='primary' icon={<Share />} onClick={handleShare}  />
         <Button name='Add Content' color='secondary' icon={<Plus />} onClick={handleAdd} />
-        <Button name='' color='danger' icon={<LogOut />} onClick={()=>handleLogOut()} />
+        <Button name='' color='danger' icon={<LogOut />} onClick={()=>{handleLogOut()
+          toast.success('logOut successfully')
+        }} />
       </div>
     </div>
   )

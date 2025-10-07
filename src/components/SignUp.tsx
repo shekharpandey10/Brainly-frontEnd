@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { signUpApi } from '../api/UserApi'
 import TagLine from './TagLine'
+import { toast } from 'react-toastify'
 
 function SignUp() {
   const [Username, setUsername] = useState<any>('')
@@ -28,8 +29,10 @@ function SignUp() {
     setData(res)
     setLoading(false)
     if (res && res?.status === 200) {
+      toast.success("SignUp Successfull")
       navigate('/login')
     } else {
+      toast.error("SignUp Failed. Invalid Creadiantial")
       navigate('/signup')
     }
     setIsSignUp(true)

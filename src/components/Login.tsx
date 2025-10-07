@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import SignUp from './SignUp'
 import { loginApi } from '../api/UserApi'
 import TagLine from './TagLine'
+import { toast } from 'react-toastify'
 
 function Login({handleLogIn}:any) {
   const [Username, setUsername] = useState('')
@@ -31,11 +32,13 @@ function Login({handleLogIn}:any) {
     console.log(token,'token is inside the login')
     if (!token) navigate('/login')
     if (res.status !== 200) {
+      toast.error("Login failed, Invalid Creadiantial")
       setError(res?.msg)
     } else {
       setData(res)
       console.log('navigate to the home...')
       handleLogIn()
+      toast.success('Login Successfull.')
       navigate('/home')
       console.log('navigate to the home...end')
     }

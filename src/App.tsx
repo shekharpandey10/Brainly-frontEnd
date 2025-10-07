@@ -39,7 +39,7 @@ function handleLogIn(){
          
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login handleLogIn={handleLogIn} />} />
-           <Route path='*' element={<Login/>}/>
+           <Route path='*' element={<Login handleLogIn={handleLogIn}/>}/>
           </>)
          }
           
