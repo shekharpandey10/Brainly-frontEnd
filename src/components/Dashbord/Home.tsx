@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {getAllDoc} from '../../api/ContentApi'
+import { getAllDoc } from '../../api/ContentApi'
 import Button from './Button'
 import Share from '../../icons/Share'
 import Plus from '../../icons/Plus'
@@ -10,58 +10,73 @@ import ShareLink from './ShareLink'
 import Sidebar from '../Sidebar/Sidebar'
 import { useNavigate } from 'react-router-dom'
 import AllCards from './AllCards'
-function Home() {
-  const [list,setList]=useState<any>(null)
-  const [loading,setLoading]=useState<boolean>(true)
-  const [error,setError]=useState<string>('')
-  const [open,setOpen]=useState(false)
-    const [share,setShare]=useState(false)
-   const navigate= useNavigate()
-    const handleShare=()=>{
-      setOpen(false)
-        setShare(p=>!p)
-    }
-
-    const handleAdd=()=>{
-        setShare(false)
-        setOpen(p=>!p)
-    }
-console.log(list)
-  useEffect(()=>{
-    const callApi=async()=>{
-    const result=await getAllDoc()
-    console.log(result.res.data.map((d:any,i:number)=>console.log(d.link)),'shekhar')
-    if(result.status===200)
-    setList(result.res.data)
-  else{
-    setError(result.error || 'Internal server Error')
-    navigate('/login')
+function Home({handleLogOut}:any) {
+  console.log('home is loading')
+  const [list, setList] = useState<any>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState(null)
+  const [open, setOpen] = useState(false)
+  const [share, setShare] = useState(false)
+  const navigate = useNavigate()
+  const handleShare = () => {
+    setOpen(false)
+    setShare((p) => !p)
   }
-  setLoading(false)   
-  console.log(error)               
-}
+
+  const handleAdd = () => {
+    setShare(false)
+    setOpen((p) => !p)
+  }
+  
+  const callApi = async () => {
+    const result = await getAllDoc()
+    console.log(result,'result is')
+    console.log(
+      result?.res?.data?.map((d: any, i: number) => console.log(d.link)),
+      'shekhar'
+    )
+    if (result.status === 200){ setList(result.res.data)
+      navigate('/home')
+    }else {
+      setError(result.error || 'Internal server Error')
+      navigate('/login')
+    }
+    setLoading(false)
+    console.log(error)
+  }
+  console.log(list)
+  useEffect(() => {
+    const token = localStorage.getItem('jwtSecret')
+    console.log('token from home ', token)
+    if (!token) {
+      console.log('navigate to login')
+      navigate('/login')
+      return
+    }
+
     callApi()
-  },[])
+  }, [navigate])
 
-
- if(loading){
-  return <div>Loading...</div>
- } 
-if(error){
-  return <div>Error....</div>
-}
+  if (loading) {
+    return <div>Loading...</div>
+  }
+  if (error) {
+    return <div>Error....</div>
+  }
   return (
-  <div className={`w-full min-h-screen  flex ${open || share?'bg-[#2f4c5827]':'bg-[#f9fbfc]'} `}>
-
-     <Sidebar/>
-  <div className=' w-full min-h-screen'>
-     <Header handleAdd={handleAdd}  handleShare={handleShare}/>
+    <div
+      className={`w-full min-h-screen  flex ${
+        open || share ? 'bg-[#2f4c5827]' : 'bg-[#f9fbfc]'
+      } `}
+    >
+      <Sidebar />
+      <div className=' w-full min-h-screen'>
+     <Header handleAdd={handleAdd}  handleShare={handleShare} handleLogOut={handleLogOut}/>
 
    <AllCards list={list}/>
   {open && <NewDocs handleAdd={handleAdd}/>}
   {share &&  <ShareLink handleShare={handleShare}/>}
   </div>
- 
     </div>
   )
 }

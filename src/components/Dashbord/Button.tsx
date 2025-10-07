@@ -9,13 +9,13 @@ interface ButtonProps{
 function Button({ icon, name, color,onClick }: ButtonProps) {
   return (
     <button  className={`
-        ${color === 'primary' ? 'bg-[#e0e7ff] text-[#5b54c5]' : ''}
-        ${color === 'secondary' ? 'bg-[#5046e3] text-white  hover:shadow-2xl    font-normal w-[150px] ' : ''}
-        ${color === 'danger' ? 'bg-red-600 text-white' : ''}
-        h-8 w-[130px] flex justify-center items-center p-5 px-5 hover:shadow-2xl hover:duration-150  font-semibold text-lg rounded-md
+        ${color === 'primary' ? 'bg-[#e0e7ff] text-[#5b54c5] h-8 w-[130px]' : ''}
+        ${color === 'secondary' ? 'bg-[#5046e3] text-white  hover:shadow-2xl h-8 w-[130px]  hover:scale-104 duration-1000  font-normal w-[150px] ' : ''}
+        ${color === 'danger' ? 'bg-red-600 text-white h-5' : ''}
+         w-auto flex justify-center items-center p-5 px-5 hover:shadow-2xl hover:duration-150  font-semibold text-lg rounded-md
       `} onClick={onClick}>
       <span>{icon}</span>
-      <span className=' pl-4 whitespace-nowrap '>{name}</span> 
+      <span className=' pl-4 whitespace-nowrap'>{name}</span> 
     </button>
   )
 }

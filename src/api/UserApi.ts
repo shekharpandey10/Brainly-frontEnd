@@ -38,8 +38,9 @@ export const signUpApi = async (username: string, password: string) => {
 }
 
 export const loginApi = async (username: string, password: string) => {
+  console.log('inside my loginApi')
   try {
-    console.log('font login')
+    console.log('front login')
     const res = await fetch(`${BASE_URL}/user/signin`, {
       method: 'POST',
       headers: {
@@ -54,18 +55,19 @@ export const loginApi = async (username: string, password: string) => {
         msg: await res.json().then((res) => res.msg),
        
       }
-      console.log(err)
+      console.log(err,'error is')
       return err
     }
-    console.log(res)
-    const r=await res.json()
-    console.log(r)
+    console.log(res,'this is the res')
+    const result=await res.json()
+ 
+    console.log(result,'this is the final data')
     const data = {
       status: res.status,
-     r
+     result
     }
-    localStorage.setItem('jwtSecret',r.jwt_secret)
-    console.log(data)
+    localStorage.setItem('jwtSecret',result.jwt_secret)
+    console.log(data,'this is going to return')
     return data
   } catch (e: any) {
     console.log(e, 'hooooooo...login')
