@@ -4,7 +4,7 @@ import SignUp from './SignUp'
 import { loginApi } from '../api/UserApi'
 import TagLine from './TagLine'
 
-function Login() {
+function Login({handleLogIn}:any) {
   const [Username, setUsername] = useState('')
   const [Password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -35,6 +35,7 @@ function Login() {
     } else {
       setData(res)
       console.log('navigate to the home...')
+      handleLogIn()
       navigate('/home')
       console.log('navigate to the home...end')
     }

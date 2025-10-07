@@ -10,7 +10,7 @@ import ShareLink from './ShareLink'
 import Sidebar from '../Sidebar/Sidebar'
 import { useNavigate } from 'react-router-dom'
 import AllCards from './AllCards'
-function Home() {
+function Home({handleLogOut}:any) {
   console.log('home is loading')
   const [list, setList] = useState<any>(null)
   const [loading, setLoading] = useState<boolean>(true)
@@ -27,10 +27,7 @@ function Home() {
     setShare(false)
     setOpen((p) => !p)
   }
-  const handleLogout = () => {
-    localStorage.removeItem('jwtSecret')
-    navigate('/login')
-  }
+  
   const callApi = async () => {
     const result = await getAllDoc()
     console.log(result,'result is')
@@ -74,7 +71,7 @@ function Home() {
     >
       <Sidebar />
       <div className=' w-full min-h-screen'>
-     <Header handleAdd={handleAdd}  handleShare={handleShare} handleLogout={handleLogout}/>
+     <Header handleAdd={handleAdd}  handleShare={handleShare} handleLogOut={handleLogOut}/>
 
    <AllCards list={list}/>
   {open && <NewDocs handleAdd={handleAdd}/>}

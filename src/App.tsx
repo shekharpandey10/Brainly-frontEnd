@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { ToastContainer, toast } from 'react-toastify';
 import Login from './components/Login'
 import {BrowserRouter,Navigate,Route,Routes} from 'react-router-dom'
 import SignUp from './components/SignUp'
@@ -11,12 +12,14 @@ function App() {
     !!localStorage.getItem('jwtSecret')
   )
  
+function handleLogOut(){
+  localStorage.removeItem('jwtSecret')
+  setUser(false)
+}
 
-  useEffect(()=>{
-    setUser(
-      !!localStorage.getItem('jwtSecret')
-    )
-  })
+function handleLogIn(){
+  setUser(true)
+}
   // const user=localStorage.getItem('jwtSecret')
 
 
@@ -27,21 +30,21 @@ function App() {
          {
           user?
           (<>
-           <Route path='/' element={<Home/>}/>
-          <Route path='/home' element={<Home/>}/>
+           <Route path='/' element={<Home handleLogOut={handleLogOut}/>}/>
+          <Route path='/home' element={<Home handleLogOut={handleLogOut}/>}/>
           <Route path='/*' element={<Home/>}/>
           
           </>):
 (          <>
          
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login handleLogIn={handleLogIn} />} />
            <Route path='*' element={<Login/>}/>
           </>)
          }
           
         </Routes>
-        
+        <ToastContainer/>
     </BrowserRouter>
   )
 }
