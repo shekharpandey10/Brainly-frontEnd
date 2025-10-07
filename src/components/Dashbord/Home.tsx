@@ -10,7 +10,8 @@ import ShareLink from './ShareLink'
 import Sidebar from '../Sidebar/Sidebar'
 import { useNavigate } from 'react-router-dom'
 import AllCards from './AllCards'
-function Home({handleLogOut}:any) {
+import { ClipLoader } from 'react-spinners'
+function Home({ handleLogOut }: any) {
   console.log('home is loading')
   const [list, setList] = useState<any>(null)
   const [loading, setLoading] = useState<boolean>(true)
@@ -27,17 +28,18 @@ function Home({handleLogOut}:any) {
     setShare(false)
     setOpen((p) => !p)
   }
-  
+
   const callApi = async () => {
     const result = await getAllDoc()
-    console.log(result,'result is')
+    console.log(result, 'result is')
     console.log(
       result?.res?.data?.map((d: any, i: number) => console.log(d.link)),
       'shekhar'
     )
-    if (result.status === 200){ setList(result.res.data)
+    if (result.status === 200) {
+      setList(result.res.data)
       navigate('/home')
-    }else {
+    } else {
       setError(result.error || 'Internal server Error')
       navigate('/login')
     }
@@ -58,7 +60,11 @@ function Home({handleLogOut}:any) {
   }, [navigate])
 
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <div className='h-screen w-screen flex items-center justify-center'>
+        <ClipLoader color={'#123abc'} loading={loading} size={50} />
+      </div>
+    )
   }
   if (error) {
     return <div>Error....</div>
@@ -71,12 +77,16 @@ function Home({handleLogOut}:any) {
     >
       <Sidebar />
       <div className=' w-full min-h-screen'>
-     <Header handleAdd={handleAdd}  handleShare={handleShare} handleLogOut={handleLogOut}/>
+        <Header
+          handleAdd={handleAdd}
+          handleShare={handleShare}
+          handleLogOut={handleLogOut}
+        />
 
-   <AllCards list={list}/>
-  {open && <NewDocs handleAdd={handleAdd}/>}
-  {share &&  <ShareLink handleShare={handleShare}/>}
-  </div>
+        <AllCards list={list} />
+        {open && <NewDocs handleAdd={handleAdd} />}
+        {share && <ShareLink handleShare={handleShare} />}
+      </div>
     </div>
   )
 }

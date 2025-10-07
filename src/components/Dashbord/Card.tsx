@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { TwitterTweetEmbed } from "react-twitter-embed";
 import Pencil from "../../icons/Pencil";
 import Delete from "../../icons/Delete";
 import LinkIcon from "../../icons/LinkIcon";
+import { shareLinkEnable } from "../../api/ContentApi";
+import ShareLink from "./ShareLink";
 
 function Card({ data }: any) {
+  console.log(data)
+  const [shareUrl,setShareUrl]=useState()
+  const [isShareDocs,setIsShareDocs]=useState(false)
+  const [sharebox,setSharebox]=useState(true)
   // Detect link type
   function getLinkType(url: string): "youtube" | "twitter" | "document" | "other" {
     try {
@@ -57,11 +63,23 @@ function Card({ data }: any) {
 
   const linkType = getLinkType(data?.link);
 
+  const shareLink=async(id:string)=>{
+   const link= await shareLinkEnable(id)
+   console.log(link)
+   setShareUrl(link)
+   setIsShareDocs(true)
+  }
+  const handleSharebox=()=>{
+    setSharebox(false)
+  }
+  if(isShareDocs){
+    return <ShareLink handleShare={handleSharebox} />
+  }
   return (
-    <div className="min-w-[200px] shadow-xl h-64 shadow-black p-3 border-black bg-gray-200 shadow-md rounded-md overflow-y-scroll ">
+    <div className="min-w-[200px] shadow-xl h-64 shadow-black p-6  border-black bg-gray-200 shadow-md rounded-md overflow-y-scroll  ">
       <div className="flex justify-end ">
         <span className="flex gap-4 cursor-pointer">
-          <span className="border shadow-xl rounded-md p-1 text-white bg-gray-500 hover:scale-x-110 hover:scale-y-110 duration-300"><LinkIcon /></span>
+          <span className="border shadow-xl rounded-md p-1 text-white bg-gray-500 hover:scale-x-110 hover:scale-y-110 duration-300" onClick={()=>shareLink(data?._id)} ><LinkIcon   /></span>
           <span className="border shadow-xl rounded-md p-1 text-white bg-gray-500 hover:scale-x-110 hover:scale-y-110 duration-300"><Pencil /></span>
                  <span className="border shadow-xl rounded-md p-1 text-white bg-gray-500 hover:scale-x-110 hover:scale-y-110 duration-300"><Delete /></span>
 

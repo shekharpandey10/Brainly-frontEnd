@@ -2,8 +2,8 @@ import { redirect, useNavigate } from 'react-router-dom'
 
 const BASE_URL = 'http://localhost:4000/app/v1'
 
+const token = localStorage.getItem('jwtSecret')
 export const getAllDoc = async () => {
-  const token = localStorage.getItem('jwtSecret')
   console.log(token)
   try {
     console.log('welcome')
@@ -39,4 +39,25 @@ export const getAllDoc = async () => {
     }
     return err
   }
+}
+
+export const shareLinkEnable = async (id: string) => {
+try {
+   const response= await fetch(`${BASE_URL}/content/shareLink`, {
+    method: 'put',
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${token}`,
+      
+    },
+    body:JSON.stringify({docId:id})
+  })
+
+  const link=await response.json();
+ 
+  return link.url;
+} catch (error) {
+  throw new Error("Failed to get Url of docs ")
+}
+
 }
